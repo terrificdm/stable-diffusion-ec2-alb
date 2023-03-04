@@ -66,11 +66,15 @@ export class StableDiffusionEc2Stack extends cdk.Stack {
     
     new cdk.CfnOutput(this, 'InstanceConsole', {
       value: 'https://console.aws.amazon.com/ec2/home?region='+instance.env.region+'#Instances:search='+instance.instanceId,
-      description: 'The AWS console for specific EC2 instance'
+      description: 'The AWS console for webui EC2 instance'
     });
     new cdk.CfnOutput(this, 'AlbDnsName', {
       value: alb.loadBalancerDnsName,
-      description: 'Access Stable-Diffusion-WebUi Portal, admin/123456'
+      description: 'Stable-Diffusion-WebUi Portal, admin/123456'
+    });
+    new cdk.CfnOutput(this, 'AlbConsole', {
+      value: 'https://console.aws.amazon.com/ec2/home?region='+alb.env.region+'#TargetGroup:targetGroupArn='+alb.loadBalancerArn,
+      description: 'The AWS console for ALB, use this to quickly jump to check health status of target in target group'
     });
   }
 }
