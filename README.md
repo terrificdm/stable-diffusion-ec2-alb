@@ -27,3 +27,5 @@ $ cdk deploy
 $ cdk destroy
 ```
 
+> SD-Webui files are under /home/ubuntu directory
+> You can use "tail -f /home/ubuntu/stablediffusion.log" to get real time logs for webui
