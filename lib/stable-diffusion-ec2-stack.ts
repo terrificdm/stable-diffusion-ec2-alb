@@ -73,7 +73,7 @@ export class StableDiffusionEc2Stack extends cdk.Stack {
       description: 'Stable-Diffusion-WebUi Portal, admin/123456'
     });
     new cdk.CfnOutput(this, 'AlbConsole', {
-      value: 'https://console.aws.amazon.com/ec2/home?region='+alb.env.region+'#TargetGroup:targetGroupArn='+alb.loadBalancerArn,
+      value: 'https://console.aws.amazon.com/ec2/home?region='+alb.env.region+'#LoadBalancer:loadBalancerArn='+alb.loadBalancerArn,
       description: 'The AWS console for ALB, use this to quickly jump to check health status of target in target group'
     });
   }
