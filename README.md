@@ -21,7 +21,7 @@ $ cdk synth
 $ cdk deploy
 ```
 
-# Clearn  
+# Clean  
 * Remove ec2 role's policy first, then run:
 ```bash
 $ cdk destroy
