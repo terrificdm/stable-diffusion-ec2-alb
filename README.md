@@ -1,14 +1,9 @@
-# Welcome to your CDK TypeScript project
+# CDK for deploying stable diffusion webui on EC2 instance  
 
-This is a blank project for CDK development with TypeScript.
+* Automatically install [sd-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) on AWS EC2 g4dn instance  
+* Expose access-endpoint(check "AlbDnsName" in cloudformation's Outputs) through ALB which is in front of EC2
+* Default credential is admin/123456
+* Default instance type is g4dn.2xlarge
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
 
-## Useful commands
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `cdk deploy`      deploy this stack to your default AWS account/region
-* `cdk diff`        compare deployed stack with current state
-* `cdk synth`       emits the synthesized CloudFormation template
