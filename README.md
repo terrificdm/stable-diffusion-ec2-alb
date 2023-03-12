@@ -30,6 +30,6 @@ $ cdk destroy
 
 # Notes  
 * SD-Webui files are under /home/ubuntu directory  
-* You can use "tail -f /home/ubuntu/stablediffusion.log" to get real time logs for webui  
-* Although the deployment of cdk is fast, webui still needs more time(around 15 minutes) to spin up. Check "Status" of ec2 target in ALB target group. The "healthy" indicates that everything is ready to use   
-* Regarding using sd-webui, read its [official repo](https://github.com/AUTOMATIC1111/stable-diffusion-webui)  
+* You can use "tail -f /home/ubuntu/stable-diffusion-webui/sd-webui.log" to get real time logs for webui  
+* After CDK deployment is finished, SD-Webui instance still needs a little bit of time to be initiated at ALB. Please check "Status" of ec2 target in ALB target group. The "healthy" indicates that everything is ready to use   
+* Regarding how to use SD-Webui, read its [official repo](https://github.com/AUTOMATIC1111/stable-diffusion-webui)  
