@@ -1,10 +1,10 @@
 # CDK deploy stable diffusion webui on EC2   
 
 * Automatically install [sd-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) on AWS EC2 instance  
-* Expose webui endpoint("AlbDnsName" in cloudformation's Outputs) through ALB
-* Default credential of webui is admin/123456, you can change those [here](https://github.com/terrificdm/stable-diffusion-ec2/blob/main/lib/stable-diffusion-ec2-stack.ts#L30)  
+* Expose webui endpoint("AlbDnsName" in cloudformation's Outputs) through ALB  
+* You need to [change ssh key-pars](https://github.com/terrificdm/stable-diffusion-ec2/blob/main/lib/stable-diffusion-ec2-stack.ts#L47) with your own before run below instructions  
+* Default credential of webui is admin/123456, you can change those [here](https://github.com/terrificdm/stable-diffusion-ec2/blob/main/lib/stable-diffusion-ec2-stack.ts#L50)  
 * Default instance type is g4dn.2xlarge  
-* You need to [change ssh key-pars](https://github.com/terrificdm/stable-diffusion-ec2/blob/main/lib/stable-diffusion-ec2-stack.ts#L42) with your own before run below instructions
 
 # Build  
 * Make sure you follow the [AWS CDK Prerequisites](https://docs.aws.amazon.com/cdk/latest/guide/work-with.html#work-with-prerequisites) before you build the project.
