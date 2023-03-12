@@ -10,10 +10,15 @@ export class StableDiffusionEc2Stack extends cdk.Stack {
 
     const vpc = ec2.Vpc.fromLookup(this, 'VPC', {isDefault: true});
     
-    const ubuntuLinux = ec2.MachineImage.genericLinux({
-      'us-east-1': 'ami-0557a15b87f6559cf',
-    });
+    // const ubuntuLinux = ec2.MachineImage.genericLinux({
+    //   'us-east-1': 'ami-0557a15b87f6559cf',
+    // });
     
+    const ubuntuLinux = ec2.MachineImage.fromSsmParameter(
+      '/aws/service/canonical/ubuntu/server/22.04/stable/current/amd64/hvm/ebs-gp2/ami-id',
+      { os: ec2.OperatingSystemType.LINUX }
+      );
+
     const userData = ec2.UserData.forLinux();
     userData.addCommands(
       'apt-get update -y',
@@ -24,11 +29,15 @@ export class StableDiffusionEc2Stack extends cdk.Stack {
       'apt-get update -y',
       'apt-get -y install cuda-drivers',
       'apt install wget git python3 python3-venv -y',
+      'apt install python3-pip -y',
+      'pip install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-py3-latest.tar.gz',
+      'mkdir -p /opt/aws/bin',
+      'ln -s /usr/local/bin/cfn-* /opt/aws/bin/',
       'git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui /home/ubuntu/stable-diffusion-webui',
       'wget https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned.safetensors -P /home/ubuntu/stable-diffusion-webui/models/Stable-diffusion/',
       'chown ubuntu /home/ubuntu/stable-diffusion-webui -R',
-      `su ubuntu -c 'nohup bash /home/ubuntu/stable-diffusion-webui/webui.sh --xformers --listen  --gradio-auth admin:123456 > /home/ubuntu/stablediffusion.log 2>&1 &'`
-      ); // Change username & password to yours through -gradio-auth admin:123456
+      'cd /home/ubuntu/stable-diffusion-webui',
+      );
     
     const instance = new ec2.Instance(this, 'Instance', {
       vpc: vpc,
@@ -39,7 +48,12 @@ export class StableDiffusionEc2Stack extends cdk.Stack {
         volume: ec2.BlockDeviceVolume.ebs(500)
       }],
       userData: userData,
-      keyName: 'demo' //You need to replace the value of keyName with your own key-pairs name!
+      keyName: 'demo', //You need to replace the value of keyName with your own key-pairs name!
+      init: ec2.CloudFormationInit.fromElements(
+        ec2.InitCommand.shellCommand(`su ubuntu -c 'bash webui.sh --xformers --exit'`),
+        ec2.InitCommand.shellCommand(`su ubuntu -c 'nohup bash webui.sh --xformers --listen  --gradio-auth admin:123456 > ./sd-webui.log 2>&1 &'`), // Change username & password to yours through -gradio-auth admin:123456
+        ),
+        resourceSignalTimeout: cdk.Duration.minutes(20),
     });
     
     instance.connections.allowFromAnyIpv4(ec2.Port.tcp(22), 'Allow ssh from internet');
@@ -70,11 +84,11 @@ export class StableDiffusionEc2Stack extends cdk.Stack {
     });
     new cdk.CfnOutput(this, 'AlbDnsName', {
       value: alb.loadBalancerDnsName,
-      description: 'Stable-Diffusion-WebUi Portal, admin/123456'
+      description: 'Stable-Diffusion-WebUi Portal, login as admin/123456'
     });
     new cdk.CfnOutput(this, 'AlbConsole', {
       value: 'https://console.aws.amazon.com/ec2/home?region='+alb.env.region+'#LoadBalancers:search='+alb.loadBalancerArn,
-      description: 'The AWS console for ALB, use this to quickly jump to check health status of target in target group'
+      description: 'The AWS console for ALB, use this to quickly jump to check health status of target in ALB target group'
     });
   }
 }
