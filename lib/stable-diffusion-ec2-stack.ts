@@ -10,10 +10,6 @@ export class StableDiffusionEc2Stack extends cdk.Stack {
 
     const vpc = ec2.Vpc.fromLookup(this, 'VPC', {isDefault: true});
     
-    // const ubuntuLinux = ec2.MachineImage.genericLinux({
-    //   'us-east-1': 'ami-0557a15b87f6559cf',
-    // });
-    
     const ubuntuLinux = ec2.MachineImage.fromSsmParameter(
       '/aws/service/canonical/ubuntu/server/22.04/stable/current/amd64/hvm/ebs-gp2/ami-id',
       { os: ec2.OperatingSystemType.LINUX }
