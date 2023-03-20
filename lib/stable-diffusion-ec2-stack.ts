@@ -49,7 +49,7 @@ export class StableDiffusionEc2Stack extends cdk.Stack {
         ec2.InitCommand.shellCommand(`su ubuntu -c 'bash webui.sh --xformers --exit'`),
         ec2.InitCommand.shellCommand(`su ubuntu -c 'nohup bash webui.sh --xformers --listen  --gradio-auth admin:123456 > ./sd-webui.log 2>&1 &'`), // Change username & password to yours through -gradio-auth admin:123456
         ),
-        resourceSignalTimeout: cdk.Duration.minutes(20),
+        resourceSignalTimeout: cdk.Duration.minutes(60),
     });
     
     instance.connections.allowFromAnyIpv4(ec2.Port.tcp(22), 'Allow ssh from internet');
