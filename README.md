@@ -30,6 +30,7 @@ $ cdk destroy
 
 # Notes  
 * SD-Webui files are under /home/ubuntu directory  
+* Default command in CDK scripts for running SD-Webui is "nohup bash webui.sh --xformers --listen  --gradio-auth admin:123456 > ./sd-webui.log 2>&1 &", you can kill that process and run your own [command with difference flags](https://github.com/AUTOMATIC1111/stable-diffusion-webui/wiki/Command-Line-Arguments-and-Settings)
 * You can use "tail -f /home/ubuntu/stable-diffusion-webui/sd-webui.log" to get real time logs for webui  
 * After CDK deployment is finished, SD-Webui instance still needs some time to be initiated at ALB backend. Please check "Status" of ec2 target in ALB target group. The "healthy" indicates that everything is ready to use   
 * Regarding how to use SD-Webui, read its [official repo](https://github.com/AUTOMATIC1111/stable-diffusion-webui)  
