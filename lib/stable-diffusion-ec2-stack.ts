@@ -24,20 +24,19 @@ export class StableDiffusionEc2Stack extends cdk.Stack {
       'dpkg -i cuda-keyring_1.0-1_all.deb',
       'apt-get update -y',
       'apt-get -y install cuda-drivers',
-      'apt install wget git python3 python3-venv -y',
+      'apt install wget git python3 python3-venv libgl1 libglib2.0-0 -y',
+      'apt install --no-install-recommends google-perftools -y',
       'apt install python3-pip -y',
       'pip install https://s3.amazonaws.com/cloudformation-examples/aws-cfn-bootstrap-py3-latest.tar.gz',
       'mkdir -p /opt/aws/bin',
       'ln -s /usr/local/bin/cfn-* /opt/aws/bin/',
-      'git clone https://github.com/AUTOMATIC1111/stable-diffusion-webui /home/ubuntu/stable-diffusion-webui',
-      'wget https://huggingface.co/runwayml/stable-diffusion-v1-5/resolve/main/v1-5-pruned.safetensors -P /home/ubuntu/stable-diffusion-webui/models/Stable-diffusion/',
-      'chown ubuntu /home/ubuntu/stable-diffusion-webui -R',
-      'cd /home/ubuntu/stable-diffusion-webui',
+      'wget -q https://raw.githubusercontent.com/AUTOMATIC1111/stable-diffusion-webui/master/webui.sh -P /home/ubuntu',
+      'cd /home/ubuntu',
       );
     
     const instance = new ec2.Instance(this, 'Instance', {
       vpc: vpc,
-      instanceType: ec2.InstanceType.of(ec2.InstanceClass.G4DN, ec2.InstanceSize.XLARGE2),
+      instanceType: ec2.InstanceType.of(ec2.InstanceClass.G5, ec2.InstanceSize.XLARGE2),
       machineImage: ubuntuLinux,
       blockDevices: [{
         deviceName: '/dev/sda1',
