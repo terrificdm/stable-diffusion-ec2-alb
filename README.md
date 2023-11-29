@@ -2,8 +2,8 @@
 
 * Automatically install [sd-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui) on AWS EC2 instance  
 * Expose webui endpoint("AlbDnsName" in cloudformation's Outputs) through ALB  
-* You need to [change ssh key-pars](https://github.com/terrificdm/stable-diffusion-ec2/blob/main/lib/stable-diffusion-ec2-stack.ts#L46) with your own before run below instructions  
-* Default credential of webui is admin/123456, you can change those [here](https://github.com/terrificdm/stable-diffusion-ec2/blob/main/lib/stable-diffusion-ec2-stack.ts#L50)  
+* You need to [change ssh key-pars](https://github.com/terrificdm/stable-diffusion-ec2-alb/blob/main/lib/stable-diffusion-ec2-alb-stack.ts#L46) with your own before run below instructions  
+* Default credential of webui is admin/123456, you can change those [here](https://github.com/terrificdm/stable-diffusion-ec2-alb/blob/main/lib/stable-diffusion-ec2-alb-stack.ts#L49)  
 * Default instance type is g5.2xlarge  
 
 # Build  
