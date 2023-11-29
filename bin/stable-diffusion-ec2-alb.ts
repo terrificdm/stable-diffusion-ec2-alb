@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { StableDiffusionEc2Stack } from '../lib/stable-diffusion-ec2-stack';
+import { StableDiffusionEc2AlbStack } from '../lib/stable-diffusion-ec2-alb-stack';
 
 const app = new cdk.App();
-new StableDiffusionEc2Stack(app, 'StableDiffusionEc2Stack', {
+new StableDiffusionEc2AlbStack(app, 'StableDiffusionEc2AlbStack', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */

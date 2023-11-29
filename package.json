@@ -1,8 +1,8 @@
 {
-  "name": "stable-diffusion-ec2",
+  "name": "stable-diffusion-ec2-alb",
   "version": "0.1.0",
   "bin": {
-    "stable-diffusion-ec2": "bin/stable-diffusion-ec2.js"
+    "stable-diffusion-ec2": "bin/stable-diffusion-ec2-alb.js"
   },
   "scripts": {
     "build": "tsc",
